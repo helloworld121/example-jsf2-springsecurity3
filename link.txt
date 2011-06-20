@@ -1,0 +1,4 @@
+
+http://technology-for-human.blogspot.com/2011/01/jsf-2-with-spring-3-protection-with.html
+
+http://wiki.icefaces.org/display/ICE/Spring+Security
