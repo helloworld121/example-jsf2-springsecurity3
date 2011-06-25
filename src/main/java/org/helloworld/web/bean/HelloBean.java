@@ -5,7 +5,7 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
 
-@ManagedBean
+@ManagedBean(name="HelloBean")
 @SessionScoped
 public class HelloBean
         implements Serializable {
