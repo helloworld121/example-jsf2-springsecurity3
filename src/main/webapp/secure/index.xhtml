@@ -6,33 +6,30 @@
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>Home</title>
+    <title>Secure Page</title>
 </h:head>
 
 
 <h:body>
 
     <div id="content">
-        <h1>Home Page (home.xhtml)</h1>
+
+        <h1>Secure Page</h1>
 
         <p>
-            Anyone can view this page.
-        </p>
-
-        <p>
-            Your principal object is....: <!-- %= request.getUserPrincipal() % -->
+            This is a protected page. You can get to me if you've been remembered,
+            or if you've authenticated this session.
         </p>
 
 
+
         <p>
-            <!--
-            <a href="secure/index.jsp">Secure page</a>
-            -->
-            <a href="secure/index.xhtml">Secure page</a>
+            <a href="../">Home</a>
         </p>
         <p>
-            <a href="secure/extreme/index.xhtml">Extremely secure page</a>
+            <a href="../j_spring_security_logout">Logout</a>
         </p>
+
 
     </div>
 

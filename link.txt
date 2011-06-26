@@ -13,3 +13,9 @@ http://wiki.icefaces.org/display/ICE/Spring+Security
 
 
 http://peterarockiaraj.wordpress.com/2010/01/15/integrating-jsf-spring-security-and-ldap-3/
+
+
+
+# Spring Security Taglib Infos
+http://static.springsource.org/spring-webflow/docs/2.2.x/reference/html/ch13s09.html
+https://src.springframework.org/svn/spring-webflow/branches/spring-webflow-2.3-maintenance/spring-webflow-reference/src/spring-faces.xml

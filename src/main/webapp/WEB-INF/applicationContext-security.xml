@@ -19,7 +19,11 @@
     <!--
     <security:http pattern="/loggedout.jsp" security="none"/>
     -->
+    <!-- logout -->
     <security:http pattern="/loggedOut.xhtml" security="none"/>
+    <!-- welcome -->
+    <security:http pattern="/index.html" security="none"/>
+    <security:http pattern="/home.xhtml" security="none"/>
 
 
     <security:http use-expressions="true">
@@ -32,9 +36,11 @@
         <security:form-login />
         <!--
         <security:logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID"/>
+        <security:logout logout-success-url="/loggedOut.xhtml" delete-cookies="JSESSIONID" invalidate-session="true"/>
         -->
-        <security:logout logout-success-url="/loggedOut.xhtml" delete-cookies="JSESSIONID"/>
+        <security:logout logout-success-url="/loggedOut.xhtml" />
         
+
         <security:remember-me />
 
         <!-- Uncomment to enable X509 client authentication support -->
