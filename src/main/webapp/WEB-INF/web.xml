@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                             http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         id="WebApp_ID"
-         version="2.5">
+                             http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 
-    <display-name>JSF 2 Spring Security 3 Example Webapp</display-name>
+    <display-name>Spring Security Example</display-name>
 
     <!-- Change to "Production" when you are ready to deploy -->
     <context-param>
@@ -17,7 +15,8 @@
         <param-value>Development</param-value>
     </context-param>
 
-    <!-- Spring configuration -->
+    <!-- Location of the XML file that defines the root application context -->
+    <!-- Applied by ContextLoaderListener. -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -25,23 +24,38 @@
             /WEB-INF/applicationContext-security.xml
         </param-value>
     </context-param>
+
+    <!--
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>tutorial.root</param-value>
+    </context-param>
+    -->
+
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
+
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+    <!-- Loads the root application context of this web app at startup. -->
+    <!-- The application context is then available via -->
+    <!-- WebApplicationContextUtils.getWebApplicationContext(servletContext). -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
 
-    <!-- Welcome page -->
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
+    <!-- Publishes events for session creation and destruction through the application -->
+    <!-- context. Optional unless concurrent session control is being used. -->
+    <listener>
+        <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+    </listener>
 
 
     <!-- JSF mapping -->
@@ -52,23 +66,15 @@
     </servlet>
 
 
-    <!-- Map these files with JSF -->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Faces Servlet</servlet-name>-->
-        <!--<url-pattern>/faces/*</url-pattern>-->
-    <!--</servlet-mapping>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Faces Servlet</servlet-name>-->
-        <!--<url-pattern>*.jsf</url-pattern>-->
-    <!--</servlet-mapping>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Faces Servlet</servlet-name>-->
-        <!--<url-pattern>*.faces</url-pattern>-->
-    <!--</servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 
 </web-app>
