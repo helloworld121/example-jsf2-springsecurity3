@@ -8,12 +8,16 @@ http://wiki.icefaces.org/display/ICE/Spring+Security
 
 
 
-
-
-
-
 http://peterarockiaraj.wordpress.com/2010/01/15/integrating-jsf-spring-security-and-ldap-3/
 
+
+# Nice example
+http://facestutorials.icefaces.org/tutorial/spring-security-basic.html
+http://wiki.icefaces.org/display/ICE/Spring+Security
+
+http://idms.rutgers.edu/cas/sample_spring_security.shtml
+http://www.mularien.com/blog/2008/07/07/5-minute-guide-to-spring-security/
+http://samerabdelkafi.wordpress.com/2011/01/16/secure-your-web-application-with-spring-security/
 
 
 # Spring Security Taglib Infos
