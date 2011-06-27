@@ -28,11 +28,12 @@
         <!-- secured ressources -->
         <security:intercept-url pattern="/secure/extreme/**" access="hasRole('ROLE_SUPERVISOR')"/>
         <security:intercept-url pattern="/secure/**" access="isAuthenticated()" />
-
         <!-- Allow all other requests. -->
         <!-- ATTENTION In a real application you should adopt a whitelisting approach where access is not allowed by default -->
         <security:intercept-url pattern="/**" access="permitAll" />
-        <security:form-login />
+
+
+        <security:form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?error=1"/>
 
         <!-- Log out -->
         <!--

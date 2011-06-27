@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>Extrem Secure Page</title>
+</h:head>
+
+
+<h:body>
+
+    <div id="content">
+
+        <h2>HTML Login Form</h2>
+        <p>
+            This form uses only html.  It posts to /j_spring_security_check with
+            j_username and j_password inputs.  This way of using spring
+            security requires an authenticationManager configuration.
+        </p>
+
+        <form method="POST" action="/j_spring_security_check">
+            <table width="500" border="0">
+                <tr>
+                    <th>Username:</th>
+                    <td><input id="j_username" type="text" name="j_username" value="" /></td>
+                </tr>
+                <tr>
+                    <th>Password:</th>
+                    <td><input id="j_password" type="password" name="j_password" value="" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input id="j_submitLogin" type="submit" value="Login" /></td>
+                </tr>
+            </table>
+        </form>
+
+        <br/>
+        <br/>
+
+        <h:form>
+            <h:commandButton type="submit" value="Goto Home" action="#{JSFTestBean.gotoHome}"/>
+        </h:form>
+
+    </div>
+
+
+</h:body>
+</html>
