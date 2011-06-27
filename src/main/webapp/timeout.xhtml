@@ -6,22 +6,23 @@
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>Logged out</title>
+    <title>Session Timeout</title>
 </h:head>
 
 
 <h:body>
-    <h1>Home Page (loggedOut.xhtml)</h1>
 
-    <h:form>
+    <div id="content">
+        <h1>Invalid Session (timeout.xhtml)</h1>
 
-        some JSF2 outup: <h:outputText value="#{JSFTestBean.someOutput}"/>
-        <br/>
-        <br/>
 
-        <h:commandButton type="submit" value="Goto Home" action="#{JSFTestBean.gotoHome}"/>
-        <br/>
-        <h:link outcome="home" value="Goto Home"/>
-    </h:form>
+        <p>
+            Your session appears to have timed out.
+            Please <a href="home.xhtml">start again</a>.
+        </p>
+
+    </div>
+
+
 </h:body>
 </html>

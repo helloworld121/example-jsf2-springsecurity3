@@ -9,16 +9,14 @@
                            http://www.springframework.org/schema/security
                            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+    <!-- this must be removed for production -->
     <security:debug />
 
     <!--
     <security:global-method-security pre-post-annotations="enabled" />
     -->
 
-
-    <!--
-    <security:http pattern="/loggedout.jsp" security="none"/>
-    -->
+    <!-- ALL pages that have free access => it extremly necessary for session timeout -->
     <!-- logout -->
     <security:http pattern="/loggedOut.xhtml" security="none"/>
     <!-- welcome -->
@@ -27,19 +25,22 @@
 
 
     <security:http use-expressions="true">
+        <!-- secured ressources -->
         <security:intercept-url pattern="/secure/extreme/**" access="hasRole('ROLE_SUPERVISOR')"/>
         <security:intercept-url pattern="/secure/**" access="isAuthenticated()" />
 
-        <!-- Allow all other requests. In a real application you should -->
-        <!-- adopt a whitelisting approach where access is not allowed by default -->
+        <!-- Allow all other requests. -->
+        <!-- ATTENTION In a real application you should adopt a whitelisting approach where access is not allowed by default -->
         <security:intercept-url pattern="/**" access="permitAll" />
         <security:form-login />
+
+        <!-- Log out -->
         <!--
         <security:logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID"/>
-        <security:logout logout-success-url="/loggedOut.xhtml" delete-cookies="JSESSIONID" invalidate-session="true"/>
-        -->
         <security:logout logout-success-url="/loggedOut.xhtml" />
-        
+        -->
+        <security:logout logout-success-url="/loggedOut.xhtml" delete-cookies="JSESSIONID" invalidate-session="true"/>
+
 
         <security:remember-me />
 
@@ -49,7 +50,10 @@
         -->
 
         <!-- Uncomment to limit the number of sessions a user can have -->
+        <!--
         <security:session-management invalid-session-url="/timeout.jsp">
+        -->
+        <security:session-management invalid-session-url="/timeout.xhtml">
             <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
         </security:session-management>
     </security:http>
