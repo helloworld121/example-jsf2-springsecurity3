@@ -1,13 +1,21 @@
+# Full repository
+https://s3browse.springsource.com/browse/maven.springframework.org/milestone/org/springframework/security/
+
+# Architecture
+http://dhis2.wikkii.com/wiki/Security-current-implementation-overview
+
+
+
+# custon autorization
+http://alexduan.com/2011/02/18/customizing-spring-security-to-fit-your-existing-domain-model/
+http://krams915.blogspot.com/2010/12/spring-security-3-mvc-using-native.html
+
+
+
+# TODO
 http://nedlowe.co.uk/wordpress/?p=55
-
 http://technology-for-human.blogspot.com/2011/01/jsf-2-with-spring-3-protection-with.html
-
 http://wiki.icefaces.org/display/ICE/Spring+Security
-
-
-
-
-
 http://peterarockiaraj.wordpress.com/2010/01/15/integrating-jsf-spring-security-and-ldap-3/
 
 

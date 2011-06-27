@@ -6,7 +6,7 @@
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>Extrem Secure Page</title>
+    <title>Login page</title>
 </h:head>
 
 
@@ -14,7 +14,7 @@
 
     <div id="content">
 
-        <h2>HTML Login Form</h2>
+        <h2>Login (login.xhtml)</h2>
         <p>
             This form uses only html.  It posts to /j_spring_security_check with
             j_username and j_password inputs.  This way of using spring
@@ -30,6 +30,10 @@
                 <tr>
                     <th>Password:</th>
                     <td><input id="j_password" type="password" name="j_password" value="" /></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="_spring_security_remember_me" /></td>
+                    <td>Remember Me</td>
                 </tr>
                 <tr>
                     <td></td>

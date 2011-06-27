@@ -33,6 +33,7 @@
         <security:intercept-url pattern="/**" access="permitAll" />
 
 
+        <!-- Log in -->
         <security:form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?error=1"/>
 
         <!-- Log out -->
@@ -58,6 +59,25 @@
             <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
         </security:session-management>
     </security:http>
+
+
+
+    <!--
+    <bean id="customAuthenticationProvider" class="org.helloworld.example.security.CustomAuthenticationProvider"/>
+    <bean id="customUserDetailsService" class="org.helloworld.example.security.CustomUserDetailsService"/>
+
+
+    <security:authentication-manager>
+        <security:authentication-provider ref="stupidAuthenticationProvider" user-service-ref="customUserDetailsService"/>
+    </security:authentication-manager>
+    -->
+
+    <!--
+    <bean id="customUserDetailsService" class="org.helloworld.example.security.CustomUserDetailsService"/>
+    <security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider user-service-ref="customUserDetailsService"/>
+	</security:authentication-manager>
+	-->
 
 
     <!-- Usernames/Passwords are -->
