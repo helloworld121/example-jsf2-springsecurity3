@@ -10,6 +10,20 @@ http://dhis2.wikkii.com/wiki/Security-current-implementation-overview
 http://alexduan.com/2011/02/18/customizing-spring-security-to-fit-your-existing-domain-model/
 http://krams915.blogspot.com/2010/12/spring-security-3-mvc-using-native.html
 
+# Best
+http://krams915.blogspot.com/2010/12/spring-security-3-mvc-using-native.html
+
+
+
+
+http://technology-for-human.blogspot.com/2010/12/jsf-2-with-spring-3-basics-part-1-of-2.html
+http://technology-for-human.blogspot.com/2011/01/jsf-2-with-spring-3-protection-with.html
+
+
+
+# Now
+http://krams915.blogspot.com/2010/12/spring-security-mvc-integration-using_26.html
+
 
 
 # TODO

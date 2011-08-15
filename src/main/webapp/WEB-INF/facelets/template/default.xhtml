@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
+
+
+<h:head>
+    <title>
+        <ui:insert name="insert-title">Default Title</ui:insert>
+    </title>
+</h:head>
+
+
+<h:body>
+
+    <h:outputStylesheet library="css" name="layout.css"/>
+
+
+    <div class="div_container">
+
+        <div class="div_container">
+            <ui:insert name="inser-header">
+                <ui:include src="/WEB-INF/facelets/fraction/Header.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <div class="div_container">
+            <h2>
+                <ui:insert name="inser-headline">Headline comes here</ui:insert>
+            </h2>
+        </div>
+
+        <div class="div_container">
+            <ui:insert name="insert-body">
+                Body comes here
+            </ui:insert>
+        </div>
+
+        <div class="div_container">
+            <ui:insert name="insert-footer">
+                <ui:include src="/WEB-INF/facelets/fraction/Footer.xhtml"/>
+            </ui:insert>
+        </div>
+
+    </div>
+
+
+</h:body>
+
+
+</html>

@@ -15,6 +15,7 @@
         <param-value>Development</param-value>
     </context-param>
 
+
     <!-- Location of the XML file that defines the root application context -->
     <!-- Applied by ContextLoaderListener. -->
     <context-param>
@@ -24,14 +25,6 @@
             /WEB-INF/applicationContext-security.xml
         </param-value>
     </context-param>
-
-
-    <!--
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>tutorial.root</param-value>
-    </context-param>
-    -->
 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -50,8 +43,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-
     <!-- Publishes events for session creation and destruction through the application -->
     <!-- context. Optional unless concurrent session control is being used. -->
     <listener>
@@ -77,5 +68,16 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
+
+    <!--
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
+    </context-param>
+    -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/jsf-springsecurity.taglib.xml</param-value>
+    </context-param>
 
 </web-app>

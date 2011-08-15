@@ -3,99 +3,78 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                            http://www.springframework.org/schema/security
                            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <!-- this must be removed for production -->
-    <security:debug />
 
-    <!--
-    <security:global-method-security pre-post-annotations="enabled" />
-    -->
-
-    <!-- ALL pages that have free access => it extremly necessary for session timeout -->
-    <!-- logout -->
-    <security:http pattern="/loggedOut.xhtml" security="none"/>
-    <!-- welcome -->
-    <security:http pattern="/index.html" security="none"/>
-    <security:http pattern="/home.xhtml" security="none"/>
+    <!-- an alternative method to the standard role-based voting mechanism implemented
+         by RoleVoter is the use of Spring Expression Language (SpEL) -->
+    <security:http auto-config="false" use-expressions="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
+        <security:custom-filter position="CONCURRENT_SESSION_FILTER" ref="concurrencyFilter" />
+        <security:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationProcessingFilter" />
 
 
-    <security:http use-expressions="true">
-        <!-- secured ressources -->
-        <security:intercept-url pattern="/secure/extreme/**" access="hasRole('ROLE_SUPERVISOR')"/>
-        <security:intercept-url pattern="/secure/**" access="isAuthenticated()" />
-        <!-- Allow all other requests. -->
-        <!-- ATTENTION In a real application you should adopt a whitelisting approach where access is not allowed by default -->
-        <security:intercept-url pattern="/**" access="permitAll" />
+        <security:intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
+        <security:intercept-url pattern="/favicon.ico" access="permitAll"/>
+        <security:intercept-url pattern="/login.xhtml" access="permitAll"/>
 
+        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 
-        <!-- Log in -->
-        <security:form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?error=1"/>
-
-        <!-- Log out -->
-        <!--
-        <security:logout logout-success-url="/loggedout.jsp" delete-cookies="JSESSIONID"/>
-        <security:logout logout-success-url="/loggedOut.xhtml" />
-        -->
-        <security:logout logout-success-url="/loggedOut.xhtml" delete-cookies="JSESSIONID" invalidate-session="true"/>
-
-
-        <security:remember-me />
-
-        <!-- Uncomment to enable X509 client authentication support -->
-        <!--
-        <security:x509 />
-        -->
-
-        <!-- Uncomment to limit the number of sessions a user can have -->
-        <!--
-        <security:session-management invalid-session-url="/timeout.jsp">
-        -->
-        <security:session-management invalid-session-url="/timeout.xhtml">
-            <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
-        </security:session-management>
+        <!-- This baseline configuration will look for the logout URL specified in the logout-url
+             attribute and log the user out. -->
+        <!-- invalidate-session: If true, the user's HTTP session will be invalidated when
+             they log out. In some cases, this isn't desired (for example,
+             when a user has a shopping cart). -->
+        <security:logout invalidate-session="true"
+                         logout-success-url="/"
+                         logout-url="/logout.do"/>
     </security:http>
 
+    <bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/login.xhtml"/>
+    </bean>
+
+    <!-- This is only necessary because we want to remove spring security specific names -->
+    <!-- START -->
+    <bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+        <property name="sessionRegistry" ref="sessionRegistry" />
+        <property name="expiredUrl" value="/login.xhtml?errorcode=201" />
+	</bean>
+    <bean id="authenticationProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <property name="filterProcessesUrl" value="/login.do" />
+        <property name="usernameParameter" value="username" />
+        <property name="passwordParameter" value="password" />
+        <!--<property name="filterProcessesUrl" value="/j_spring_security_check" />-->
+        <!--<property name="usernameParameter" value="j_username" />-->
+        <!--<property name="passwordParameter" value="j_password" />-->
+        <property name="authenticationManager" ref="authenticationManager" />
+        <!--<property name="rememberMeServices" ref="rememberMeServices" />-->
+        <!--<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />-->
+        <!--<property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>-->
+        <property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy"/>
+    </bean>
+    <bean id="concurrentSessionControlStrategy" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+        <constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+        <property name="maximumSessions" value="1" />
+        <!-- because we want to migrate sessions (oldest session will be deactivated) -->
+        <property name="exceptionIfMaximumExceeded" value="false" />
+	</bean>
+    <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+    <!-- END -->
 
 
-    <!--
-    <bean id="customAuthenticationProvider" class="org.helloworld.example.security.CustomAuthenticationProvider"/>
-    <bean id="customUserDetailsService" class="org.helloworld.example.security.CustomUserDetailsService"/>
 
-
-    <security:authentication-manager>
-        <security:authentication-provider ref="stupidAuthenticationProvider" user-service-ref="customUserDetailsService"/>
-    </security:authentication-manager>
-    -->
-
-    <!--
-    <bean id="customUserDetailsService" class="org.helloworld.example.security.CustomUserDetailsService"/>
     <security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider user-service-ref="customUserDetailsService"/>
-	</security:authentication-manager>
-	-->
-
-
-    <!-- Usernames/Passwords are -->
-    <!-- rod/koala -->
-    <!-- dianne/emu -->
-    <!-- scott/wombat -->
-    <!-- peter/opal -->
-    <security:authentication-manager>
         <security:authentication-provider>
-            <security:password-encoder hash="md5"/>
-
             <security:user-service>
-                <security:user name="rod" password="a564de63c2d0da68cf47586ee05984d7" authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_TELLER" />
-                <security:user name="dianne" password="65d15fe9156f9c4bbffd98085992a44e" authorities="ROLE_USER,ROLE_TELLER" />
-                <security:user name="scott" password="2b58af6dddbd072ed27ffc86725d7d3a" authorities="ROLE_USER" />
-                <security:user name="peter" password="22b5c9accc6e1ba628cedc63a72d57f8" authorities="ROLE_USER" />
+                <security:user authorities="ROLE_USER" name="guest" password="guest"/>
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
+
 
 </beans>

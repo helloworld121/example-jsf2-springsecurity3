@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/facelets/template/default.xhtml">
+
+    <ui:define name="insert-title">Site: secure/account/home.xhtml</ui:define>
+
+    <ui:define name="inser-headline">Account (secure/account/home.xhtml)</ui:define>
+
+    <ui:define name="insert-body">
+        <h:form>
+            <!--<label for="password">New Password</label>:-->
+            <!--<input id="password" name="password" size="20" maxlength="50" type="password"/>-->
+            <!--<br />-->
+            <!--<input type="submit" value="Change Password"/>-->
+
+            <h:outputLabel for="oldpassword" value="Old Password" />
+            <h:inputText id="oldpassword" label="Old Password" value="#{UserAdministratorBean.oldPassword}" />
+            <br />
+            <h:outputLabel for="newpassword" value="New Password" />
+            <h:inputText id="newpassword" label="New Password" value="#{UserAdministratorBean.newPassword}" />
+            <br />
+            <h:commandButton type="submit" value="Change Password" action="#{UserAdministratorBean.submitChangePasswordPage}"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

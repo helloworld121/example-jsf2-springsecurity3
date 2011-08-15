@@ -1,56 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>Login page</title>
-</h:head>
+<?xml version="1.0" encoding="UTF-8"?>
 
 
-<h:body>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <div id="content">
 
-        <h2>Login (login.xhtml)</h2>
-        <p>
-            This form uses only html.  It posts to /j_spring_security_check with
-            j_username and j_password inputs.  This way of using spring
-            security requires an authenticationManager configuration.
-        </p>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/facelets/template/default.xhtml">
 
-        <form method="POST" action="/j_spring_security_check">
+    <ui:define name="insert-title">Site: login.xhtml</ui:define>
+
+    <ui:define name="inser-headline">Login (login.xhtml)</ui:define>
+
+    <ui:define name="insert-body">
+
+        <!-- error message -->
+        <h:outputLabel rendered="#{param['errorcode'] != null}">
+            <h1 style="color:red">ErrorCode: "#{param['errorcode']}"</h1>
+        </h:outputLabel>
+
+
+        <!--<form method="POST" action="j_spring_security_check">-->
+        <form method="POST" action="/login.do">
             <table width="500" border="0">
                 <tr>
-                    <th>Username:</th>
-                    <td><input id="j_username" type="text" name="j_username" value="" /></td>
+                    <td>Username:</td>
+                    <!--<td><input id="j_username" type="text" name="j_username" value="" /></td>-->
+                    <td><input id="username" type="text" name="username" value="" /></td>
                 </tr>
                 <tr>
-                    <th>Password:</th>
-                    <td><input id="j_password" type="password" name="j_password" value="" /></td>
+                    <td>Password:</td>
+                    <!--<td><input id="j_password" type="password" name="j_password" value="" /></td>-->
+                    <td><input id="password" type="password" name="password" value="" /></td>
                 </tr>
+                <!--
                 <tr>
-                    <td><input type="checkbox" name="_spring_security_remember_me" /></td>
-                    <td>Remember Me</td>
+                    <td><input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true"/></td>
+                    <td>Remember Me?</td>
                 </tr>
+                -->
                 <tr>
                     <td></td>
-                    <td><input id="j_submitLogin" type="submit" value="Login" /></td>
+                    <!--<td><input id="j_submitLogin" type="submit" value="Login" /></td>-->
+                    <td><input id="login" type="submit" value="Login" /></td>
                 </tr>
             </table>
         </form>
+    </ui:define>
 
-        <br/>
-        <br/>
-
-        <h:form>
-            <h:commandButton type="submit" value="Goto Home" action="#{JSFTestBean.gotoHome}"/>
-        </h:form>
-
-    </div>
-
-
-</h:body>
-</html>
+</ui:composition>

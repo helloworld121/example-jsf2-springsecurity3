@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sec="http://www.jsf-springsecurity.de/security/tags">
+
+    <div class="div_container">
+        file: Header.xhtml
+        <br/>
+        <br/>
+        Functions:
+        <a href="/home.xhtml">Home</a>,
+        <a href="/secure/account/home.xhtml">Account</a>,
+        <a href="/logout.do">Log Out</a>
+        <br/>
+        <sec:authorize access="hasRole('ROLE_USER')">
+            hasRole('ROLE_USER')
+        </sec:authorize>
+    </div>
+
+</ui:composition>

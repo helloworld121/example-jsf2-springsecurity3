@@ -73,6 +73,29 @@
         </dependency>
         <!-- This is necessary to use security taglib -->
         <!-- http://static.springsource.org/spring-webflow/docs/2.2.x/reference/html/ch13s09.html -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.webflow</groupId>-->
+            <!--<artifactId>spring-faces</artifactId>-->
+            <!--<version>2.2.1.RELEASE</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.springframework</groupId>-->
+                    <!--<artifactId>spring-webmvc</artifactId>-->
+                <!--</exclusion>-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>org.springframework.webflow</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>spring-binding</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.springframework.webflow</groupId>-->
+                    <!--<artifactId>spring-js</artifactId>-->
+                <!--</exclusion>-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>org.springframework.webflow</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>spring-webflow</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
         <!--
         <dependency>
             <groupId>org.springframework.webflow</groupId>
@@ -81,6 +104,19 @@
         </dependency>
         -->
 
+        <!--
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.10</version>
+        </dependency>
 
 
         <!--
@@ -109,7 +145,7 @@
 			<scope>compile</scope>
 		</dependency>
 		-->
-		
+
 		<!--
         <dependency>
             <groupId>javax.servlet</groupId>

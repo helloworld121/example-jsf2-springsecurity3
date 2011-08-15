@@ -1,41 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <title>Home</title>
-</h:head>
+<?xml version="1.0" encoding="UTF-8"?>
 
 
-<h:body>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <div id="content">
-        <h1>Home Page (home.xhtml)</h1>
 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/WEB-INF/facelets/template/default.xhtml">
+
+    <ui:define name="insert-title">Site: home.xhtml</ui:define>
+
+    <ui:define name="inser-headline">Home (home.xhtml)</ui:define>
+
+    <ui:define name="insert-body">
         <p>
-            Anyone can view this page.
+            <a href="/secure/index.xhtml">Secure page</a>
         </p>
+    </ui:define>
 
-        <p>
-            Your principal object is....: <!-- %= request.getUserPrincipal() % -->
-        </p>
-
-
-        <p>
-            <!--
-            <a href="secure/index.jsp">Secure page</a>
-            -->
-            <a href="secure/index.xhtml">Secure page</a>
-        </p>
-        <p>
-            <a href="secure/extreme/index.xhtml">Extremely secure page</a>
-        </p>
-
-    </div>
-
-
-</h:body>
-</html>
+</ui:composition>
