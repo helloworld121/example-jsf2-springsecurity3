@@ -96,21 +96,35 @@
         <property name="authenticationManager" ref="customAuthenticationManager"/>
         <property name="accessDecisionManager" ref="affirmativeBased"/>
         <property name="securityMetadataSource">
-            <security:filter-security-metadata-source>
+            <!--<security:filter-security-metadata-source>-->
+            <security:filter-security-metadata-source use-expressions="true">
+                <!--
                 <security:intercept-url pattern="/javax.faces.resource/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
                 <security:intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
                 <security:intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
                 <security:intercept-url pattern="/home.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-                <!--<security:intercept-url pattern="/**" access="denyAll"/>-->
-                <!--<security:intercept-url pattern="/login.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
-                <!--<security:intercept-url pattern="/login.xhtml" access="permitAll"/>-->
                 <security:intercept-url pattern="/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-                <!--<security:intercept-url pattern="/home.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
-                <!--<security:intercept-url pattern="/account/*.do" access="ROLE_USER"/>-->
-                <!--<security:intercept-url pattern="/secure/**" access="ROLE_USER"/>-->
                 <security:intercept-url pattern="/*" access="ROLE_USER,ROLE_ADMIN"/>
                 <security:intercept-url pattern="/secure/*" access="ROLE_USER,ROLE_ADMIN"/>
                 <security:intercept-url pattern="/secure/account/**" access="ROLE_ADMIN"/>
+                -->
+
+                <!-- allow basic sites -->
+                <security:intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
+                <security:intercept-url pattern="/favicon.ico" access="permitAll"/>
+                <security:intercept-url pattern="/index.html" access="permitAll"/>
+                <security:intercept-url pattern="/home.xhtml" access="permitAll"/>
+                <security:intercept-url pattern="/login.xhtml" access="permitAll"/>
+
+                <!-- allow role: ROLE_USER and ROLE_ADMIN -->
+                <security:intercept-url pattern="/secure/*" access="hasRole('ROLE_USER')"/>
+
+                <!-- allow role: ROLE_ADMIN -->
+                <!--<security:intercept-url pattern="/secure/*" access="hasRole('ROLE_ADMIN')"/>-->
+                <security:intercept-url pattern="/secure/account/*" access="hasRole('ROLE_ADMIN')"/>
+
+                <!-- all other resources should be denied: deny all access -->
+                <security:intercept-url pattern="/**" access="denyAll"/>
             </security:filter-security-metadata-source>
         </property>
     </bean>
@@ -124,6 +138,7 @@
     <!-- ************************************************************************************************* -->
 
     <!-- If any voter grants access, access is immediately granted, regardless of previous denials. -->
+    <!--
     <bean id="affirmativeBased" class="org.springframework.security.access.vote.AffirmativeBased">
         <property name="decisionVoters">
             <list>
@@ -134,6 +149,26 @@
     </bean>
     <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
     <bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+    -->
+    <!-- Explicit configuration of the SpEL expression evaluator and voter -->
+    <bean id="affirmativeBased" class="org.springframework.security.access.vote.AffirmativeBased" >
+        <property name="decisionVoters">
+            <list>
+                <!--<ref bean="roleVoter"/>-->
+                <ref bean="expressionVoter"/>
+                <!--<ref bean="authenticatedVoter"/>-->
+            </list>
+        </property>
+    </bean>
+    <!--<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>-->
+    <bean id="expressionVoter" class="org.springframework.security.web.access.expression.WebExpressionVoter" >
+        <property name="expressionHandler" ref="expressionHandler"/>
+    </bean>
+    <!--<bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter"/>-->
+    <bean id="expressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+    
+
 
     <!-- It is responsible for providing credential validation to the AuthenticationManager. Some -->
     <!-- AuthenticationProvider implementations partially base their acceptance of credentials on a -->

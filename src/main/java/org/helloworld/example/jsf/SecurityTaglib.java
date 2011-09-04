@@ -2,9 +2,15 @@ package org.helloworld.example.jsf;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.security.access.expression.ExpressionUtils;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.util.SimpleMethodInvocation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
@@ -30,8 +36,6 @@ public class SecurityTaglib
 
 
     /**
-     * TODO switch to real SPel {@link org.springframework.security.access.expression.method.MethodSecurityExpressionRoot}
-     *
      * @param ctx
      * @param parent
      * @throws IOException
@@ -41,54 +45,48 @@ public class SecurityTaglib
 			return;
 		}
 
-        String hasRoleKey = "hasRole";
+        // it should also be possible to switch to the bean "expressionVoter"
+
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // In the moment only hasRole is supported
-        if(access.getValue() == null || !access.getValue().startsWith(hasRoleKey)) {
-            log.error("In the moment only hasRole is supported. Current value = '" + access.getValue() + "'");
-            throw new IllegalArgumentException("In the moment only hasRole is supported. Current value = '" + access.getValue() + "'");
-        }
-
-        String accessValue = access.getValue().substring(hasRoleKey.length());
-
-        boolean isAuthorized = false;
-        if(accessValue.substring(0, 2).equals("('")
-                && accessValue.substring(accessValue.length()-2, accessValue.length()).equals("')")) {
-            accessValue = accessValue.substring(2, accessValue.length()-2);
-
-            isAuthorized = existGroup(authentication, accessValue);
-
-        } else {
-            log.error("Expected pattern is '('*')'. But found: '" + accessValue + "'");
-            throw new IllegalArgumentException("Expected pattern is '(*)'. But found: '" + accessValue + "'");
-        }
+        // method handler doesn't work
+        /*
+        */
+        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+        EvaluationContext expCtx = expressionHandler.createEvaluationContext(authentication, new SimpleMethodInvocation());
 
 
-//		FaceletsAuthorizeTag authorizeTag = new FaceletsAuthorizeTag(faceletContext, access, url, method, ifAllGranted,
-//				ifAnyGranted, ifNotGranted);
-//		boolean isAuthorized = authorizeTag.authorize();
+        // web expression handler
+//        FilterInvocation fi = new FilterInvocation(getRequest(ctx), getResponse(ctx), new FilterChain());
+        // this is just to keep it simple.
+        // if you want "hasIpAddress" implement the above
+        /*
+        FilterInvocation fi = new FilterInvocation("contextPath", "servletPath", "pathInfo", "query", "method");
+        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
+        EvaluationContext expCtx = expressionHandler.createEvaluationContext(authentication, fi);
+        */
 
-		if (isAuthorized) {
+        log.info("Expression-Value: " + access.getValue());
+        ExpressionParser expressionParser = new SpelExpressionParser();
+        Expression expression = expressionParser.parseExpression("hasRole('ROLE_USER')");
+
+        boolean isAuthorized =  ExpressionUtils.evaluateAsBoolean(expression, expCtx);
+        log.info("isAuthorized: " + isAuthorized);
+
+        if (isAuthorized) {
 			this.nextHandler.apply(ctx, parent);
 		}
-
-//		if (this.var != null) {
-//			faceletContext.setAttribute(var.getValue(faceletContext), Boolean.valueOf(isAuthorized));
-//		}
     }
 
+//    private ServletRequest getRequest(FaceletContext ctx) {
+//		return (ServletRequest) ctx.getFacesContext().getExternalContext().getRequest();
+//	}
+//
+//	private ServletResponse getResponse(FaceletContext ctx) {
+//		return (ServletResponse) ctx.getFacesContext().getExternalContext().getResponse();
+//	}
 
-
-    private boolean existGroup(Authentication auth, String role) {
-        for(GrantedAuthority authroity : auth.getAuthorities()) {
-            if(authroity.getAuthority().equals(role)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
 }
