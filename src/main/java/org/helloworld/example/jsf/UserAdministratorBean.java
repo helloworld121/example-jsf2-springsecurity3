@@ -6,8 +6,8 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean(name="UserAdministratorBean")
 @SessionScoped
+@ManagedBean(name="UserAdministratorBean")
 public class UserAdministratorBean {
 
     private Log log = LogFactory.getLog(getClass());

@@ -2,7 +2,9 @@ package org.helloworld.example.jsf;
 
 public enum ErrorCode {
 
-    SESSION_EXPIRED_MULTIPLE_LOGINS(201)
+    NOT_LOGED_IN(150),
+    SESSION_EXPIRED_MULTIPLE_LOGINS(201),
+    BAD_CREDENTIAL(300),
     ;
 
     private int code;
